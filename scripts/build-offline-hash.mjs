@@ -5,7 +5,7 @@ import { resolve } from "node:path";
 const distDir = resolve("dist-offline");
 const srcHtml = resolve(distDir, "index.html");
 const targetHtml = resolve(distDir, "aphelion-offline.html");
-const checksumFile = resolve(distDir, "aphelion-offline.html.sha256");
+const checksumFile = resolve(distDir, "aphelion-offline.html.sha256.txt");
 
 if (!existsSync(srcHtml)) {
   throw new Error(`Expected single-file output at ${srcHtml}`);

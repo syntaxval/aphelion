@@ -89,9 +89,9 @@ export function AboutView() {
       <section class="card">
         <h2 class="card-title">Air-gapped offline usage</h2>
         <ol style={{ color: "var(--text-secondary)", fontSize: "0.9rem", paddingLeft: "1.25rem", marginBottom: 0 }}>
-          <li>Download the single-file <code>aphelion-offline.html</code> and its <code>.sha256</code> file.</li>
+          <li>Download the single-file <code>aphelion-offline.html</code> and its <code>.sha256.txt</code> file.</li>
           <li>
-            Verify the checksum before transferring: <code>shasum -a 256 -c aphelion-offline.html.sha256</code>
+            Verify the checksum before transferring: <code>shasum -a 256 -c aphelion-offline.html.sha256.txt</code>
           </li>
           <li>Copy the HTML file over USB to a computer that has never connected to the internet.</li>
           <li>Open <code>aphelion-offline.html</code> directly in a browser over <code>file://</code>.</li>

@@ -9,7 +9,7 @@
 Offline Stellar Hierarchical Deterministic (HD) key generator and cold storage vault.
 
 Live app: [syntaxval.github.io/aphelion](https://syntaxval.github.io/aphelion/)
-Single-file offline download: [aphelion-offline.html](https://syntaxval.github.io/aphelion/aphelion-offline.html) ([SHA-256 checksum](https://syntaxval.github.io/aphelion/aphelion-offline.html.sha256))
+Single-file offline download: [aphelion-offline.html](https://syntaxval.github.io/aphelion/aphelion-offline.html) ([SHA-256 checksum](https://syntaxval.github.io/aphelion/aphelion-offline.html.sha256.txt))
 
 Aphelion generates BIP39 mnemonics and derives Stellar Ed25519 keypairs locally in browser memory. The app makes zero network requests, ships 4 runtime dependencies, and runs without Node.js polyfills.
 
@@ -63,7 +63,7 @@ This builds the `@syntaxval/aphelion` library, the PWA in `frontend/dist`, and t
 Verify the checksum before copying the offline bundle to an air-gapped machine:
 
 ```bash
-cd frontend/dist-offline && shasum -a 256 -c aphelion-offline.html.sha256
+cd frontend/dist-offline && shasum -a 256 -c aphelion-offline.html.sha256.txt
 ```
 
 Open `aphelion-offline.html` directly in a modern browser over `file://`.
