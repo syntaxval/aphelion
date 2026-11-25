@@ -1,0 +1,22 @@
+{
+  "name": "aphelion-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "library",
+    "frontend"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w @syntaxval/aphelion-app",
+    "build:lib": "npm run build -w @syntaxval/aphelion",
+    "test:lib": "npm test -w @syntaxval/aphelion",
+    "typecheck": "npm run typecheck -w @syntaxval/aphelion && npm run typecheck -w @syntaxval/aphelion-app",
+    "build:web": "npm run build -w @syntaxval/aphelion-app",
+    "build:offline": "npm run build:offline -w @syntaxval/aphelion-app",
+    "build": "npm run build:lib && npm run build:web && npm run build:offline",
+    "test": "npm run test:lib"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

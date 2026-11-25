@@ -1,0 +1,108 @@
+@media print {
+  @page {
+    margin: 14mm;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+
+  .screen-only,
+  .topbar,
+  .footer,
+  .clipboard-toast,
+  dialog {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  .paper-sheet {
+    color: #000000;
+    border: 2px solid #000000;
+    padding: 16px 20px;
+    border-radius: 6px;
+  }
+
+  .paper-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1.5px solid #000000;
+    padding-bottom: 8px;
+    margin-bottom: 14px;
+  }
+
+  .paper-header h1 {
+    margin: 0;
+    font-size: 20pt;
+  }
+
+  .paper-meta {
+    font-size: 9pt;
+    color: #333333;
+  }
+
+  .paper-words {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    margin: 12px 0 18px;
+  }
+
+  .paper-word {
+    border: 1px solid #999999;
+    padding: 5px 8px;
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: 10pt;
+  }
+
+  .paper-word span {
+    color: #555555;
+    margin-right: 6px;
+  }
+
+  .paper-keys {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: 14px;
+  }
+
+  .paper-key-box {
+    border: 1px solid #444444;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .paper-key-box h3 {
+    margin: 0 0 6px;
+    font-size: 10pt;
+    text-transform: uppercase;
+  }
+
+  .paper-key-box svg {
+    width: 140px;
+    height: 140px;
+    display: block;
+    margin: 6px auto;
+  }
+
+  .paper-key-code {
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: 7.5pt;
+    word-break: break-all;
+  }
+
+  .paper-note {
+    margin-top: 14px;
+    padding: 8px 10px;
+    border: 1px dashed #000000;
+    font-size: 8.5pt;
+  }
+}

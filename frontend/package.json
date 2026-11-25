@@ -1,0 +1,32 @@
+{
+  "name": "@syntaxval/aphelion-app",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Aphelion — Air-gapped Stellar HD Cold Key Vault.",
+  "scripts": {
+    "dev": "vite",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc --noEmit && vite build",
+    "build:offline": "tsc --noEmit && vite build --config vite.config.offline.ts && node ../scripts/build-offline-hash.mjs",
+    "preview": "vite preview",
+    "clean": "rimraf dist dist-offline"
+  },
+  "dependencies": {
+    "@syntaxval/aphelion": "*",
+    "preact": "^10.26.4"
+  },
+  "devDependencies": {
+    "@preact/preset-vite": "^2.10.1",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.8.2",
+    "vite": "^6.2.5",
+    "vite-plugin-pwa": "^0.21.2",
+    "vite-plugin-singlefile": "^2.2.0"
+  },
+  "author": "syntaxval",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
