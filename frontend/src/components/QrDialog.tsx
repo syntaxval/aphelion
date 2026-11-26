@@ -100,7 +100,9 @@ export function QrDialog({ title, subtitle, value, isSecret, onClose }: QrDialog
 
       {isSecret && (
         <div class="banner banner-danger" style={{ marginBottom: "0.85rem" }}>
-          <strong>Sensitive Secret Key:</strong> Anyone who scans or photographs this QR code gains full control of this account.
+          <div>
+            <strong>Sensitive Secret Key:</strong> Anyone who scans or photographs this QR code gains full control of this account.
+          </div>
         </div>
       )}
 

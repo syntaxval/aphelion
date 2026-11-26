@@ -63,6 +63,11 @@ function destroyAccounts(accounts: DerivedAccount[]): void {
   }
 }
 
+function abbreviateKeyCompact(key: string): string {
+  if (key.length <= 8) return key;
+  return `${key.slice(0, 3)} ...`;
+}
+
 function abbreviateKey(key: string): string {
   if (key.length <= 12) return key;
   return `${key.slice(0, 4)} ... ${key.slice(-4)}`;
@@ -457,7 +462,7 @@ export function VaultView({
                 </details>
 
                 <div style={{ display: "flex", justifyContent: "center", marginTop: "0.5rem" }}>
-                  <button type="button" class="btn btn-primary" onClick={handleGenerate}>
+                  <button type="button" class="btn btn-primary btn-generate" onClick={handleGenerate}>
                     <IconKey /> Generate {entropyBits === 256 ? "24-Word" : "12-Word"} Cold Vault
                   </button>
                 </div>
@@ -740,7 +745,10 @@ export function VaultView({
 
                       <div class="key-line">
                         <span class="key-label">Public</span>
-                        <span class="key-value">{abbreviateKey(pub)}</span>
+                        <span class="key-value">
+                          <span class="key-abbr-full">{abbreviateKey(pub)}</span>
+                          <span class="key-abbr-compact">{abbreviateKeyCompact(pub)}</span>
+                        </span>
                         <div class="key-actions">
                           <button
                             type="button"
@@ -786,7 +794,10 @@ export function VaultView({
 
                       <div class="key-line">
                         <span class="key-label">Secret</span>
-                        <span class="key-value secret-masked">{abbreviateKey(sec)}</span>
+                        <span class="key-value secret-masked">
+                          <span class="key-abbr-full">{abbreviateKey(sec)}</span>
+                          <span class="key-abbr-compact">{abbreviateKeyCompact(sec)}</span>
+                        </span>
                         <div class="key-actions">
                           <button
                             type="button"

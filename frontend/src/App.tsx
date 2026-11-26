@@ -152,11 +152,11 @@ export function App() {
             {vaultActive && (
               <button
                 type="button"
-                class="btn btn-sm btn-danger"
+                class="btn btn-sm btn-danger btn-wipe"
                 onClick={triggerWipe}
                 title="Immediately wipe keys & seed from memory"
               >
-                <IconTrash /> Wipe ({formatTimer(idleSecondsLeft)})
+                <IconTrash /> Wipe <span class="wipe-timer">({formatTimer(idleSecondsLeft)})</span>
               </button>
             )}
           </div>

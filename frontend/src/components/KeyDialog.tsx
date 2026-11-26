@@ -99,7 +99,9 @@ export function KeyDialog({
 
       {isSecret && (
         <div class="banner banner-danger" style={{ marginBottom: "0.85rem" }}>
-          <strong>Sensitive Secret Key:</strong> Anyone who sees or copies this key gains full control of this account. Automatically closes if you switch tabs.
+          <div>
+            <strong>Sensitive Secret Key:</strong> Anyone who sees or copies this key gains full control of this account.
+          </div>
         </div>
       )}
 

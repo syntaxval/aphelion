@@ -358,6 +358,22 @@ textarea {
   color: #ffffff;
 }
 
+.btn-generate {
+  font-variant-numeric: tabular-nums;
+  min-inline-size: 272px;
+}
+
+.btn-wipe {
+  font-variant-numeric: tabular-nums;
+}
+
+.wipe-timer {
+  display: inline-block;
+  font-variant-numeric: tabular-nums;
+  min-inline-size: 5.2ch;
+  text-align: center;
+}
+
 .btn-sm {
   min-block-size: 32px;
   min-inline-size: 32px;
@@ -629,10 +645,17 @@ textarea {
 
 .key-value {
   flex: 1;
+  min-width: 0;
   font-family: var(--font-mono);
   font-size: 0.82rem;
   color: var(--text-primary);
-  word-break: break-all;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.key-abbr-compact {
+  display: none;
 }
 
 .key-value.secret-masked {
@@ -857,7 +880,16 @@ dialog.aphelion-dialog::backdrop {
     grid-template-columns: 1fr;
   }
   .key-line {
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .key-abbr-full {
+    display: none;
+  }
+  .key-abbr-compact {
+    display: inline;
   }
 }
 
