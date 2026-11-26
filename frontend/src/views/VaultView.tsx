@@ -664,7 +664,9 @@ export function VaultView({
               )}
 
               {/* Optional BIP39 Passphrase */}
-              <div
+              <form
+                onSubmit={(e) => e.preventDefault()}
+                autocomplete="off"
                 style={{
                   marginTop: "1rem",
                   paddingTop: "1rem",
@@ -694,7 +696,7 @@ export function VaultView({
                     <IconEye open={showPassphrase} />
                   </button>
                 </div>
-              </div>
+              </form>
             </section>
 
             {/* Derived HD Accounts */}
