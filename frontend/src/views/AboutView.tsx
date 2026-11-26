@@ -31,7 +31,7 @@ export function AboutView() {
             <IconShield /> Offline execution and vault hygiene
           </h2>
           <ul style={{ color: "var(--text-secondary)", fontSize: "0.9rem", paddingLeft: "1.2rem", marginBottom: 0 }}>
-            <li>A Content-Security-Policy blocks outbound requests with <code>connect-src 'none'</code>.</li>
+            <li>A Content-Security-Policy blocks all external origins (<code>connect-src 'self'</code> in the PWA, <code>connect-src 'none'</code> in the offline file).</li>
             <li>Keys live in <code>Uint8Array</code> buffers that <code>.destroy()</code> overwrites with zeros.</li>
             <li>Secret keys and phrases stay masked until clicked, and switching tabs masks them again.</li>
             <li>Copying a secret clears the clipboard after 30 seconds, and 5 minutes of inactivity wipes the vault.</li>

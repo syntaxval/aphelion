@@ -4,7 +4,16 @@ import { viteSingleFile } from "vite-plugin-singlefile";
 
 export default defineConfig({
   base: "./",
-  plugins: [preact(), viteSingleFile()],
+  plugins: [
+    preact(),
+    viteSingleFile(),
+    {
+      name: "strict-offline-csp",
+      transformIndexHtml(html) {
+        return html.replace("connect-src 'self'", "connect-src 'none'");
+      },
+    },
+  ],
   build: {
     outDir: "dist-offline",
     emptyOutDir: true,
