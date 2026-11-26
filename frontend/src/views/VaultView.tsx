@@ -16,6 +16,7 @@ import {
   type EntropyBits,
   type Language,
 } from "@syntaxval/aphelion";
+import { KeyDialog } from "../components/KeyDialog";
 import { PrintDialog } from "../components/PrintDialog";
 import { QrDialog } from "../components/QrDialog";
 import {
@@ -62,8 +63,9 @@ function destroyAccounts(accounts: DerivedAccount[]): void {
   }
 }
 
-function maskSecret(secret: string): string {
-  return `${secret.slice(0, 2)}${"•".repeat(26)}${secret.slice(-4)}`;
+function abbreviateKey(key: string): string {
+  if (key.length <= 12) return key;
+  return `${key.slice(0, 4)} ... ${key.slice(-4)}`;
 }
 
 export function VaultView({
@@ -90,7 +92,6 @@ export function VaultView({
   // Derived HD accounts
   const seedRef = useRef<Uint8Array | null>(null);
   const [accounts, setAccounts] = useState<DerivedAccount[]>([]);
-  const [revealedSecrets, setRevealedSecrets] = useState<Record<number, boolean>>({});
   const [customIndexInput, setCustomIndexInput] = useState("");
   const [customIndexError, setCustomIndexError] = useState<string | null>(null);
 
@@ -102,6 +103,7 @@ export function VaultView({
 
   // Modals
   const [qrTarget, setQrTarget] = useState<QrTarget | null>(null);
+  const [keyTarget, setKeyTarget] = useState<(QrTarget & { copyId: string }) | null>(null);
   const [printOpen, setPrintOpen] = useState(false);
   const [includeSecretOnPaper, setIncludeSecretOnPaper] = useState(false);
 
@@ -119,7 +121,6 @@ export function VaultView({
     setPassphrase("");
     setShowPassphrase(false);
     setMnemonicRevealed(false);
-    setRevealedSecrets({});
     setRestoreInput("");
     setUserEntropy("");
     setCustomIndexInput("");
@@ -129,6 +130,7 @@ export function VaultView({
     setQuizAnswers({});
     setQuizPassed(false);
     setQrTarget(null);
+    setKeyTarget(null);
     setPrintOpen(false);
   }, []);
 
@@ -149,9 +151,9 @@ export function VaultView({
     const onVisibility = () => {
       if (document.visibilityState === "hidden") {
         setMnemonicRevealed(false);
-        setRevealedSecrets({});
         setShowPassphrase(false);
         setQrTarget(null);
+        setKeyTarget(null);
       }
     };
     const onBeforeUnload = () => {
@@ -173,19 +175,22 @@ export function VaultView({
   }, []);
 
   // Derive accounts whenever mnemonic or passphrase changes
-  const deriveFromMnemonic = useCallback((phrase: string, pass: string, count = 5) => {
+  const deriveFromMnemonic = useCallback((phrase: string, pass: string, indices: number[] = [0]) => {
     const nextSeed = mnemonicToSeed(phrase, pass);
     if (seedRef.current) {
       zeroBytes(seedRef.current);
     }
     seedRef.current = nextSeed;
 
-    const nextAccounts = deriveAccounts(nextSeed, 0, count);
+    const nextAccounts = indices.map((idx) => ({
+      index: idx,
+      path: formatDerivationPath(idx),
+      keypair: deriveKeypair(nextSeed, idx),
+    }));
     setAccounts((prev) => {
       destroyAccounts(prev);
       return nextAccounts;
     });
-    setRevealedSecrets({});
   }, []);
 
   const handleGenerate = () => {
@@ -201,7 +206,7 @@ export function VaultView({
     setPassphrase("");
     setQuizOpen(false);
     setQuizPassed(false);
-    deriveFromMnemonic(generated, "", 5);
+    deriveFromMnemonic(generated, "", [0]);
   };
 
   // Restore live validation
@@ -228,13 +233,14 @@ export function VaultView({
     setPassphrase("");
     setQuizOpen(false);
     setQuizPassed(false);
-    deriveFromMnemonic(normalized, "", 5);
+    deriveFromMnemonic(normalized, "", [0]);
   };
 
   const handlePassphraseChange = (next: string) => {
     setPassphrase(next);
     if (mnemonic) {
-      deriveFromMnemonic(mnemonic, next, Math.max(accounts.length, 5));
+      const currentIndices = accounts.length > 0 ? accounts.map((a) => a.index) : [0];
+      deriveFromMnemonic(mnemonic, next, currentIndices);
     }
   };
 
@@ -689,9 +695,7 @@ export function VaultView({
             {/* Derived HD Accounts */}
             <section class="card">
               <div class="card-header">
-                <h2 class="card-title">
-                  Derived Stellar Accounts <span class="path-badge">SEP-0005</span>
-                </h2>
+                <h2 class="card-title">Derived Stellar Accounts</h2>
                 <div class="card-actions">
                   <form onSubmit={handleJumpToIndex} style={{ display: "flex", gap: "0.4rem" }}>
                     <input
@@ -724,7 +728,6 @@ export function VaultView({
                 {accounts.map((acc) => {
                   const pub = acc.keypair.publicKey();
                   const sec = acc.keypair.isDestroyed ? "" : acc.keypair.secret();
-                  const isRevealed = Boolean(revealedSecrets[acc.index]);
                   const pubCopyId = `pub-${acc.index}`;
                   const secCopyId = `sec-${acc.index}`;
 
@@ -737,8 +740,24 @@ export function VaultView({
 
                       <div class="key-line">
                         <span class="key-label">Public</span>
-                        <span class="key-value">{pub}</span>
+                        <span class="key-value">{abbreviateKey(pub)}</span>
                         <div class="key-actions">
+                          <button
+                            type="button"
+                            class="btn btn-icon"
+                            aria-label={`Reveal full account ${acc.index} public key`}
+                            onClick={() =>
+                              setKeyTarget({
+                                title: `Account #${acc.index} — Public Key`,
+                                subtitle: acc.path,
+                                value: pub,
+                                isSecret: false,
+                                copyId: pubCopyId,
+                              })
+                            }
+                          >
+                            <IconEye open={false} />
+                          </button>
                           <button
                             type="button"
                             class="btn btn-icon"
@@ -767,22 +786,23 @@ export function VaultView({
 
                       <div class="key-line">
                         <span class="key-label">Secret</span>
-                        <span class={`key-value ${isRevealed ? "" : "secret-masked"}`}>
-                          {isRevealed ? sec : maskSecret(sec)}
-                        </span>
+                        <span class="key-value secret-masked">{abbreviateKey(sec)}</span>
                         <div class="key-actions">
                           <button
                             type="button"
                             class="btn btn-icon"
-                            aria-label={`${isRevealed ? "Hide" : "Reveal"} account ${acc.index} secret key`}
+                            aria-label={`Reveal full account ${acc.index} secret key`}
                             onClick={() =>
-                              setRevealedSecrets((prev) => ({
-                                ...prev,
-                                [acc.index]: !prev[acc.index],
-                              }))
+                              setKeyTarget({
+                                title: `Account #${acc.index} — Secret Key`,
+                                subtitle: acc.path,
+                                value: sec,
+                                isSecret: true,
+                                copyId: secCopyId,
+                              })
                             }
                           >
-                            <IconEye open={isRevealed} />
+                            <IconEye open={false} />
                           </button>
                           <button
                             type="button"
@@ -880,6 +900,20 @@ export function VaultView({
         value={qrTarget?.value || null}
         isSecret={qrTarget?.isSecret}
         onClose={() => setQrTarget(null)}
+      />
+
+      <KeyDialog
+        title={keyTarget?.title || ""}
+        subtitle={keyTarget?.subtitle}
+        value={keyTarget?.value || null}
+        isSecret={keyTarget?.isSecret}
+        copied={keyTarget ? copiedKey === keyTarget.copyId : false}
+        onCopy={() => {
+          if (keyTarget) {
+            onCopySecret(keyTarget.value, keyTarget.copyId, Boolean(keyTarget.isSecret));
+          }
+        }}
+        onClose={() => setKeyTarget(null)}
       />
 
       <PrintDialog

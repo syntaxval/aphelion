@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "preact/hooks";
 import { clearClipboardText, writeClipboardText } from "./lib/clipboard";
-import { IconOrbit, IconTrash } from "./lib/icons";
+import { IconTrash } from "./lib/icons";
 import { useRoute } from "./lib/router";
 import { AboutView } from "./views/AboutView";
 import { ReferencesView } from "./views/ReferencesView";
@@ -110,11 +110,12 @@ export function App() {
     <div class="app-shell">
       <header class="topbar">
         <div class="topbar-inner">
-          <button type="button" class="brand" onClick={() => navigate("vault")}>
-            <IconOrbit />
-            <span class="brand-name">APHELION</span>
-            <span class="brand-tag">Stellar Cold Vault</span>
-          </button>
+          <div class="brand-group">
+            <button type="button" class="brand" onClick={() => navigate("vault")}>
+              <span class="brand-name">APHELION</span>
+            </button>
+            <span class="brand-subtitle">Stellar Cold Vault</span>
+          </div>
 
           <nav class="nav-pills" aria-label="Primary navigation">
             <button
