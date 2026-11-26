@@ -42,7 +42,11 @@ export function AboutView() {
       <section class="card">
         <div class="card-header">
           <h2 class="card-title">Runtime dependency audit</h2>
-          <span class="chip chip-safe">4 packages, zero polyfills, zero UI libraries</span>
+          <div class="audit-badges">
+            <span class="chip chip-safe">4 packages</span>
+            <span class="chip chip-safe">0 polyfills</span>
+            <span class="chip chip-safe">0 UI libs</span>
+          </div>
         </div>
         <p style={{ color: "var(--text-secondary)", fontSize: "0.88rem", marginTop: 0 }}>
           The browser bundle ships four third-party runtime packages:
@@ -58,24 +62,24 @@ export function AboutView() {
             </thead>
             <tbody>
               <tr>
-                <td><code>@noble/hashes</code></td>
-                <td>SHA-256, SHA-512, HMAC-SHA512, PBKDF2</td>
-                <td>Audited by Cure53, zero sub-dependencies, pure <code>Uint8Array</code></td>
+                <td class="audit-pkg"><code>@noble/hashes</code></td>
+                <td data-label="Purpose">SHA-256, SHA-512, HMAC-SHA512, PBKDF2</td>
+                <td data-label="Audit status">Audited by Cure53, zero sub-dependencies, pure <code>Uint8Array</code></td>
               </tr>
               <tr>
-                <td><code>@noble/curves</code></td>
-                <td>Ed25519 public key derivation</td>
-                <td>Audited by Cure53, constant-time math, zero sub-dependencies</td>
+                <td class="audit-pkg"><code>@noble/curves</code></td>
+                <td data-label="Purpose">Ed25519 public key derivation</td>
+                <td data-label="Audit status">Audited by Cure53, constant-time math, zero sub-dependencies</td>
               </tr>
               <tr>
-                <td><code>@scure/bip39</code></td>
-                <td>BIP39 mnemonics, checksums, 8 wordlists</td>
-                <td>Written by the <code>@noble</code> author, pure <code>Uint8Array</code>, no <code>Buffer</code></td>
+                <td class="audit-pkg"><code>@scure/bip39</code></td>
+                <td data-label="Purpose">BIP39 mnemonics, checksums, 8 wordlists</td>
+                <td data-label="Audit status">Written by the <code>@noble</code> author, pure <code>Uint8Array</code>, no <code>Buffer</code></td>
               </tr>
               <tr>
-                <td><code>preact</code></td>
-                <td>Reactive UI rendering (~4 KB gzipped)</td>
-                <td>Zero runtime sub-dependencies, about 1,500 lines of code</td>
+                <td class="audit-pkg"><code>preact</code></td>
+                <td data-label="Purpose">Reactive UI rendering (~4 KB gzipped)</td>
+                <td data-label="Audit status">Zero runtime sub-dependencies, about 1,500 lines of code</td>
               </tr>
             </tbody>
           </table>
