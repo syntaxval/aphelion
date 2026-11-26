@@ -673,6 +673,16 @@ export function VaultView({
                   borderTop: "1px solid var(--border-subtle)",
                 }}
               >
+                <input
+                  type="text"
+                  name="username"
+                  autocomplete="username"
+                  value="aphelion-bip39-passphrase"
+                  readOnly
+                  hidden
+                  aria-hidden="true"
+                  tabIndex={-1}
+                />
                 <label class="field-label" for="passphrase-input">
                   Optional BIP39 Passphrase (25th Word — modifies all derived accounts)
                 </label>
