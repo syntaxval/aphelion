@@ -50,7 +50,7 @@ export function PrintDialog({
     >
       <div class="dialog-header">
         <h1 id="print-dialog-title" class="dialog-title">
-          Paper Wallet Print Options
+          Paper wallet print options
         </h1>
         <form method="dialog">
           <button type="submit" class="btn btn-sm" autofocus>
@@ -87,7 +87,7 @@ export function PrintDialog({
           <strong>Also print Account #0 Secret Key (S...) &amp; QR</strong>
           <br />
           <span style={{ color: "var(--text-muted)", fontSize: "0.8rem" }}>
-            Optional — your 12/24-word mnemonic already derives all accounts.
+            Optional. Your 12 or 24-word mnemonic already derives all accounts.
           </span>
         </span>
       </label>

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Aphelion — Air-gapped Stellar HD Cold Key Vault.",
+  "description": "Aphelion offline Stellar HD cold key vault.",
   "scripts": {
     "dev": "vite",
     "typecheck": "tsc --noEmit",

@@ -595,9 +595,6 @@ export function VaultView({
                     >
                       <IconEye open={false} /> Click to Reveal Recovery Phrase
                     </button>
-                    <span style={{ fontSize: "0.78rem", color: "var(--text-secondary)" }}>
-                      Automatically re-masks if you switch tabs
-                    </span>
                   </div>
                 )}
                 <div
@@ -684,7 +681,7 @@ export function VaultView({
                   tabIndex={-1}
                 />
                 <label class="field-label" for="passphrase-input">
-                  Optional BIP39 Passphrase (25th Word — modifies all derived accounts)
+                  Optional BIP39 passphrase (25th word, changes all derived accounts)
                 </label>
                 <div class="input-row">
                   <input
@@ -768,7 +765,7 @@ export function VaultView({
                             aria-label={`Reveal full account ${acc.index} public key`}
                             onClick={() =>
                               setKeyTarget({
-                                title: `Account #${acc.index} — Public Key`,
+                                title: `Account #${acc.index} Public Key`,
                                 subtitle: acc.path,
                                 value: pub,
                                 isSecret: false,
@@ -792,7 +789,7 @@ export function VaultView({
                             aria-label={`Show account ${acc.index} public key QR code`}
                             onClick={() =>
                               setQrTarget({
-                                title: `Account #${acc.index} — Public Key`,
+                                title: `Account #${acc.index} Public Key`,
                                 subtitle: acc.path,
                                 value: pub,
                                 isSecret: false,
@@ -817,7 +814,7 @@ export function VaultView({
                             aria-label={`Reveal full account ${acc.index} secret key`}
                             onClick={() =>
                               setKeyTarget({
-                                title: `Account #${acc.index} — Secret Key`,
+                                title: `Account #${acc.index} Secret Key`,
                                 subtitle: acc.path,
                                 value: sec,
                                 isSecret: true,
@@ -841,7 +838,7 @@ export function VaultView({
                             aria-label={`Show account ${acc.index} secret key QR code`}
                             onClick={() =>
                               setQrTarget({
-                                title: `Account #${acc.index} — Secret Key`,
+                                title: `Account #${acc.index} Secret Key`,
                                 subtitle: acc.path,
                                 value: sec,
                                 isSecret: true,
@@ -865,7 +862,7 @@ export function VaultView({
       {mnemonic && primaryAccount && (
         <section class="print-only paper-sheet">
           <div class="paper-header">
-            <h1>Aphelion — Stellar Paper Wallet</h1>
+            <h1>Aphelion Stellar Paper Wallet</h1>
             <div class="paper-meta">
               Standard: BIP39 + SLIP-0010 + SEP-0005 ({formatDerivationPath(0)})
             </div>
@@ -909,9 +906,9 @@ export function VaultView({
 
           {passphrase && (
             <div class="paper-note">
-              <strong>Passphrase Notice:</strong> A BIP39 passphrase was active when generating this
-              sheet. For security, the passphrase is NOT printed here — you must store it separately
-              to recover these accounts.
+              <strong>Passphrase notice:</strong> A BIP39 passphrase was active when generating this
+              sheet. For security, the passphrase is not printed here. Store it separately to
+              recover these accounts.
             </div>
           )}
         </section>

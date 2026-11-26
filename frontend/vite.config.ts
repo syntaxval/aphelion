@@ -11,7 +11,7 @@ export default defineConfig({
       injectRegister: "script",
       includeAssets: ["favicon.svg"],
       manifest: {
-        name: "Aphelion — Stellar Cold Key Vault",
+        name: "Aphelion | Stellar Cold Key Vault",
         short_name: "Aphelion",
         description: "Air-gapped Stellar Hierarchical Deterministic (HD) Cold Key Vault",
         theme_color: "#071324",

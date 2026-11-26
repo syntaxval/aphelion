@@ -145,7 +145,7 @@ export function App() {
           </nav>
 
           <div class="topbar-right">
-            <span class="offline-badge" title="Strict CSP connect-src 'none' — zero network calls">
+            <span class="offline-badge" title="Content-Security-Policy blocks all external network connections">
               <span class="offline-dot" />
               Zero Network
             </span>
