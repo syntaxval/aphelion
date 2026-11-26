@@ -416,8 +416,8 @@ export function VaultView({
                     <p style={{ margin: "0 0 0.6rem", fontSize: "0.82rem", color: "var(--text-secondary)" }}>
                       Mixed with your browser's CSPRNG via SHA-256 so your input can only{" "}
                       <em>add</em> unpredictability and never weaken randomness. On mobile, tap the
-                      Dice buttons below instead of typing to avoid soft keyboards that log or sync
-                      text.
+                      Dice buttons below instead of typing to avoid soft keyboards that run cloud
+                      telemetry on typed text.
                     </p>
                     <div style={{ display: "flex", gap: "0.35rem", flexWrap: "wrap", marginBottom: "0.6rem" }}>
                       {[1, 2, 3, 4, 5, 6].map((face) => (

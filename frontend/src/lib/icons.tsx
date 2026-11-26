@@ -104,10 +104,11 @@ export function IconDice() {
 
 export function IconKey() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <circle cx="7.5" cy="15.5" r="5.5" />
-      <path d="m21 2-9.6 9.6" />
-      <path d="m15.5 7.5 3 3L22 7l-3-3" />
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M12 2.5 20 7v10l-8 4.5L4 17V7l8-4.5Z" />
+      <circle cx="12" cy="10.2" r="2.2" />
+      <path d="M12 12.4v4.1" />
+      <path d="M12 14.8h2" />
     </svg>
   );
 }
